@@ -1,9 +1,10 @@
 /* ============================================================
-   LEDE — v13 · shared foundation
-   Tokens, base, type, the wash recipe, the scroll line, reveals and
-   buttons. Carried over unchanged from v12 "Ember". Components (nav,
-   footer, cards, form) are added here as each page is rebuilt from
-   the Figma frames, so every page shares one copy of each.
+   LEDE — v13 · the one stylesheet every page shares
+   Rebuilt from the Figma frames (file joinlede.com-redesign, page
+   "Homepage (26)"): home 4068:2, pricing 4515:44, showcase 4520:58.
+   Tokens are v12 "Ember" with the Figma's new blue (#3644FB). Type
+   is Schibsted throughout — the mono face is gone. The scroll-drawn
+   line is gone. Hand-drawn art lives in assets/svg/.
 
    Pages: index.html (home) · pricing.html · showcase.html · about.html
    Home only: body.home hides the nav wordmark until the header sticks.
@@ -27,8 +28,8 @@
   --ink-faint:   #5C6683;   /* meta — steel slate, 5.2:1 on cream */
 
   /* ---------- accents ---------- */
-  --accent:      #2350D2;   /* cerulean — primary action, links, the band. 6.1:1 on cream */
-  --accent-deep: #1B40AC;
+  --accent:      #3644FB;   /* v13 blue (Figma) — primary action, links, the band. 5.7:1 on cream, white on it 6.2:1 */
+  --accent-deep: #2331D6;   /* hover / pressed */
   --accent-ink:  #FFFFFF;
   --pop:         #FF6E50;   /* persimmon — FILLS ONLY, never text on a light ground */
   --pop-deep:    #E85A3C;
@@ -37,9 +38,9 @@
   --warm-ink:    #BC350E;   /* persimmon darkened until it is legal as text — 5.3:1 on cream */
 
   /* ---------- the saturated band (platform section) ---------- */
-  --band:        #2350D2;
+  --band:        #3644FB;
   --band-ink:    #FFFFFF;
-  --band-ink-soft:#D8E2FF;
+  --band-ink-soft:#E6ECFF;
   --band-rule:   #FDF0B8;   /* the rule under the emphasised phrase, ON the band —
                                persimmon is only 2.4:1 on cerulean, butter is 9.1:1 */
 
@@ -90,8 +91,8 @@
   --ink-a16:     rgba(46,46,107,.16);
   --ink-a18:     rgba(46,46,107,.18);
   --ink-a34:     rgba(46,46,107,.34);
-  --accent-a16:  rgba(35,80,210,.16);
-  --accent-a40:  rgba(35,80,210,.4);
+  --accent-a16:  rgba(54,68,251,.16);
+  --accent-a40:  rgba(54,68,251,.4);
   --ground-0:    rgba(253,246,203,0);   /* --ground at zero alpha, for wash fades */
   --nav-bg:      rgba(253,246,203,.9);
   --rule-top:    #FF6E50;               /* the 3px rule over the footer */
@@ -101,7 +102,7 @@
   --sh: 46,46,107;
 
   --sans: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  /* v13: the Figma set everything in Schibsted — no mono face is loaded */
 
   --max: 1180px;
   --gut: clamp(20px, 5vw, 56px);
@@ -136,49 +137,36 @@ button{ font:inherit; color:inherit; cursor:pointer; }
 .sr{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
 
 /* ============================================================
-   TYPE — one grotesk, one mono. Headlines carry their weight in
-   the WEIGHT and the TRACKING, not in a contrasting serif.
+   TYPE
    ============================================================ */
 h1,h2,h3,h4{ margin:0; font-weight:700; letter-spacing:-.035em; line-height:1.02; }
 .h1{ font-size:clamp(2.75rem, 6.4vw, 5.5rem); font-weight:800; letter-spacing:-.042em; line-height:.97; }
-.h2{ font-size:clamp(2.15rem, 4.2vw, 3.5rem); font-weight:800; letter-spacing:-.04em; }
+.h2{ font-size:clamp(2.15rem, 4.2vw, 3.5rem); font-weight:800; letter-spacing:-.04em; line-height:1.02; }
 .h3{ font-size:1.28rem; font-weight:700; line-height:1.22; letter-spacing:-.024em; }
-/* the emphasis gesture that used to be a serif italic is now the
-   grotesk's own italic — same rhythm, none of the softness */
 .it{ font-style:italic; font-weight:800; }
-
-/* mono micro-label — the technical register the page runs on */
-.eyebrow{
-  display:inline-block; font-family:var(--mono); font-size:.7rem; font-weight:600;
-  letter-spacing:.18em; text-transform:uppercase; color:var(--warm-ink); margin:0 0 20px;
-}
-.lead{ font-size:clamp(1.04rem,1.5vw,1.18rem); line-height:1.6; color:var(--ink-soft); margin:0; }
+.lead{ font-size:clamp(1.04rem,1.5vw,1.18rem); line-height:1.6; letter-spacing:-.0075em; color:var(--ink-soft); margin:0; }
 .body-sm{ font-size:.95rem; line-height:1.58; color:var(--ink-soft); margin:0; }
-.note{ font-family:var(--mono); font-size:.735rem; letter-spacing:.01em; color:var(--ink-faint); margin:0; }
-.mark{ color:var(--warm-ink); }
+.mark{ color:var(--warm-ink); font-weight:800; }
+.label-up{ font-size:.7rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-faint); }
+.mail-link{ color:var(--accent-deep); font-weight:600; box-shadow:inset 0 -1.5px 0 var(--accent-a40); transition:box-shadow .3s; }
+.mail-link:hover{ box-shadow:inset 0 -2.5px 0 var(--accent-deep); }
 
-/* category tag — restored from the original Figma bento */
-.tag{
-  display:inline-block; font-family:var(--mono); font-size:.655rem; font-weight:600;
-  letter-spacing:.15em; text-transform:uppercase; color:var(--ink);
-  background:var(--tint-3); padding:6px 11px; border-radius:7px; margin-bottom:16px;
-  align-self:flex-start;
-}
-.tag.t1{ background:var(--tint-3); } .tag.t2{ background:var(--tint-5); }
-.tag.t3{ background:var(--tint-1); } .tag.t4{ background:var(--tint-2); }
-.tag.t5{ background:var(--tint-4); }
+.sec-head{ max-width:640px; }
+.sec-head.center{ max-width:860px; margin:0 auto; text-align:center; }
+.sec-head .lead{ margin-top:20px; max-width:620px; }
+.sec-head.center .lead{ max-width:640px; margin-inline:auto; }
 
-/* placeholder marker — anything the client still has to supply */
-.tag-s{
-  font-family:var(--mono); font-size:.575rem; font-weight:500; letter-spacing:.11em;
-  text-transform:uppercase; color:var(--ink-faint); box-shadow:inset 0 0 0 1px var(--line);
-  padding:3px 7px; border-radius:5px; margin-left:7px; vertical-align:2px; white-space:nowrap;
-}
+/* hand-drawn art sits in the flow as an <img>; decorative ones are aria-hidden */
+.art{ display:block; height:auto; pointer-events:none; user-select:none; }
+
+/* "[on us]" — the offer phrase between two hand-drawn brackets */
+.onus{ display:inline-flex; align-items:center; white-space:nowrap; vertical-align:middle; color:var(--warm-ink); font-weight:800; }
+.onus .art{ flex:0 0 auto; }
 
 /* ============================================================
-   THE WASH — one recipe, three light stops, heavy blur, used
-   exactly twice: the hero opens with it, the closing CTA answers
-   it. Nothing in between. (Client rule, carried over from v9.)
+   THE WASH — one recipe, three light stops, heavy blur. Used twice
+   per page: the opening wash under the page head, and the closing
+   wash under the form. (Client rule since v9.)
    ============================================================ */
 .wash{ position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
 .wash::before{
@@ -194,8 +182,6 @@ h1,h2,h3,h4{ margin:0; font-weight:700; letter-spacing:-.035em; line-height:1.02
   content:""; position:absolute; inset:auto 0 0; height:56%;
   background:linear-gradient(180deg, var(--ground-0), var(--ground) 84%);
 }
-/* the closing wash is the warm answer to the hero's cool opening —
-   it spans the testimonials and the form as one field */
 .closing{ position:relative; isolation:isolate; }
 .wash.bottom::before{
   background:
@@ -208,41 +194,14 @@ h1,h2,h3,h4{ margin:0; font-weight:700; letter-spacing:-.035em; line-height:1.02
   background:linear-gradient(0deg, var(--ground-0), var(--ground) 94%);
 }
 .closing > section{ position:relative; z-index:1; }
-/* The closing wash lifts the ground under this whole block, which pushes the three
-   lightest text styles under AA. Darken them here rather than weakening the wash. */
-.closing .note{ color:var(--ink-soft); }
-.closing .eyebrow{ color:var(--warm-deep); }
-.closing .mail-link{ color:var(--accent-deep); box-shadow:inset 0 -1.5px 0 var(--accent-a40); }
-.closing .mail-link:hover{ box-shadow:inset 0 -2.5px 0 var(--accent-deep); }
-
-/* ============================================================
-   THE LINE — the hand-drawn stroke the client kept asking for.
-   Full viewport width, true aspect ratio, always behind content,
-   drawn by scroll (.by-scroll) everywhere except the hero, which draws
-   once on load (.by-load) so the composition resolves before any scroll.
-   ============================================================ */
-.line{
-  position:absolute; left:50%; transform:translateX(-50%);
-  width:100vw; height:auto; pointer-events:none; z-index:0; overflow:visible;
-}
-.line path{
-  fill:none; stroke:var(--line-ink); stroke-linecap:round; stroke-linejoin:round; opacity:.8;
-  /* stroke-width is in viewBox units, set by JS so it holds ~2px on screen.
-     vector-effect:non-scaling-stroke would be simpler, but Chromium then
-     ignores pathLength dashing and the line paints already-drawn. */
-  stroke-width:var(--sw, 9);
-  stroke-dasharray:1000; stroke-dashoffset:1000;   /* every path has pathLength="1000" */
-}
-.line.by-scroll path{ stroke-dashoffset:1000; }
-.line.by-load path{ transition:stroke-dashoffset 2.8s var(--ease) .45s; }
-.line.by-load.is-in path{ stroke-dashoffset:0; }
+.page-head{ position:relative; overflow:clip; isolation:isolate; }
+.page-head > .wrap{ position:relative; z-index:1; }
 
 /* ---------- reveal ---------- */
 .reveal{ opacity:0; transform:translateY(18px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
 .reveal.is-in{ opacity:1; transform:none; }
 .stagger>*{ opacity:0; transform:translateY(16px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
 .stagger.is-in>*{ opacity:1; transform:none; }
-.stagger.is-in>*:nth-child(1){ transition-delay:.02s; }
 .stagger.is-in>*:nth-child(2){ transition-delay:.08s; }
 .stagger.is-in>*:nth-child(3){ transition-delay:.14s; }
 .stagger.is-in>*:nth-child(4){ transition-delay:.20s; }
@@ -256,17 +215,278 @@ h1,h2,h3,h4{ margin:0; font-weight:700; letter-spacing:-.035em; line-height:1.02
   letter-spacing:-.014em; position:relative; isolation:isolate;
   transition:transform .4s var(--ease), box-shadow .4s var(--ease), background .3s;
 }
-.btn-p{
-  background:var(--accent); color:var(--accent-ink);
-  box-shadow:0 1px 2px rgba(var(--sh),.2), 0 14px 30px -14px rgba(var(--sh),.55);
-}
-.btn-p:hover{ transform:translateY(-2px); background:var(--accent-deep);
-  box-shadow:0 1px 2px rgba(var(--sh),.24), 0 22px 42px -16px rgba(var(--sh),.6); }
+.btn-p{ background:var(--accent); color:var(--accent-ink); box-shadow:0 1px 2px rgba(var(--sh),.2), 0 14px 30px -14px rgba(var(--sh),.55); }
+.btn-p:hover{ transform:translateY(-2px); background:var(--accent-deep); box-shadow:0 1px 2px rgba(var(--sh),.24), 0 22px 42px -16px rgba(var(--sh),.6); }
 .btn-p .arw{ transition:transform .4s var(--ease); }
 .btn-p:hover .arw{ transform:translateX(4px); }
-.btn-s{
-  background:var(--surface); color:var(--ink);
-  box-shadow:inset 0 0 0 1.5px var(--input-line);
-}
+.btn-s{ background:var(--surface); color:var(--ink); box-shadow:inset 0 0 0 1.5px var(--input-line); }
 .btn-s:hover{ transform:translateY(-2px); box-shadow:inset 0 0 0 1.5px var(--ink-soft); }
 .btn-sm{ padding:11px 20px; font-size:.925rem; }
+
+/* ============================================================
+   HEADER — Figma: wordmark left, links centred, button right.
+   Transparent at rest; cream + blur once it sticks. On the home
+   page the wordmark waits for the stick (the hero has the big logo).
+   ============================================================ */
+.nav{
+  position:fixed; inset:0 0 auto; z-index:60; height:72px; display:flex; align-items:center;
+  transition:background .4s var(--ease-soft), box-shadow .4s var(--ease-soft), height .4s var(--ease-soft);
+}
+.nav.stuck{
+  height:62px; background:var(--nav-bg); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  box-shadow:0 1px 0 var(--line-2), 0 8px 24px -18px rgba(var(--sh),.3);
+}
+.nav-in{
+  display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:24px;
+  width:100%; max-width:var(--max); margin:0 auto; padding-inline:var(--gut);
+}
+.brand{ justify-self:start; display:block; }
+.brand img{ width:104px; height:auto; }
+.home .nav .brand{ opacity:0; visibility:hidden; transform:translateY(-6px);
+  transition:opacity .45s var(--ease-soft), transform .45s var(--ease-soft), visibility 0s .45s; }
+.home .nav.stuck .brand{ opacity:1; visibility:visible; transform:none; transition-delay:0s; }
+.nav-links{ display:flex; gap:30px; }
+.nav-links a{
+  font-size:.875rem; font-weight:500; letter-spacing:.08em; line-height:1.44;
+  text-transform:uppercase; color:var(--ink-soft); position:relative; padding-block:4px; transition:color .3s;
+}
+.nav-links a::after{
+  content:""; position:absolute; left:0; right:100%; bottom:0; height:2px;
+  background:var(--warm); border-radius:2px; transition:right .4s var(--ease);
+}
+.nav-links a:hover,.nav-links a[aria-current="page"]{ color:var(--ink); }
+.nav-links a:hover::after,.nav-links a[aria-current="page"]::after{ right:0; }
+.nav-cta{ justify-self:end; }
+
+/* ============================================================
+   HOME — HERO
+   ============================================================ */
+.hero{ position:relative; padding:150px 0 0; overflow:clip; isolation:isolate; }
+.hero-in{ position:relative; z-index:2; text-align:center; }
+.hero-mark{ width:clamp(210px, 22.2vw, 320px); margin:0 auto 38px; }
+.hero h1{ max-width:19ch; margin:0 auto; }
+.hero .lead{ max-width:648px; margin:30px auto 0; }
+.hero-ctas{ display:flex; flex-wrap:wrap; gap:13px; justify-content:center; margin-top:38px; }
+.hero .offer{
+  margin:30px 0 0; display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:6px;
+  font-size:clamp(1.04rem,1.5vw,1.24rem); font-weight:500; letter-spacing:-.018em; color:var(--ink);
+}
+.hero .onus .art{ width:9px; }
+.hero .onus span{ padding:0 2px; }
+
+/* partner logo band */
+.trusted{ position:relative; z-index:1; padding:89px 0 78px; text-align:center; }
+.trusted .label-up{ display:block; margin-bottom:26px; }
+.mq-mask{
+  position:relative; overflow:hidden;
+  mask-image:linear-gradient(90deg,transparent,#000 9.7%,#000 90.3%,transparent);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 9.7%,#000 90.3%,transparent);
+}
+.mq{ display:flex; width:max-content; animation:mq 52s linear infinite; }
+.mq-mask:hover .mq{ animation-play-state:paused; }
+.mq span{ font-size:1.45rem; font-weight:700; letter-spacing:-.03em; line-height:1.62; color:var(--ink-faint); padding:0 34px; white-space:nowrap; transition:color .3s; }
+.mq span:hover{ color:var(--accent); }
+@keyframes mq{ to{ transform:translateX(-50%); } }
+
+/* ============================================================
+   HOME — FEATURES BAND + CAROUSEL
+   ============================================================ */
+.band{ position:relative; background:var(--band); color:var(--band-ink); }
+.features{ padding:104px 0 108px; }
+.features .h2{ color:var(--band-ink); }
+.features .lead{ color:var(--band-ink-soft); }
+/* the hand-drawn underline sits under "design", sized in em so it
+   tracks the headline at every width (Figma: 183×23 at 56px type) */
+.uline{ position:relative; display:inline-block; }
+.uline > .art{ position:absolute; }
+.features .uline > .art{ left:1.34em; top:.86em; width:3.27em; opacity:1; }
+
+.fcar{ margin-top:56px; }
+.fcar-view{ overflow:hidden; }
+.fcar-track{
+  --card-w:min(1068px, calc(100vw - 2 * max(var(--gut), 64px)));
+  display:flex; gap:26px; transition:transform .6s var(--ease); will-change:transform;
+  touch-action:pan-y;
+}
+.fcar-track.no-anim{ transition:none; }
+.fcard{
+  flex:0 0 var(--card-w); display:grid; grid-template-columns:minmax(0,1.62fr) minmax(0,1fr);
+  min-height:460px; border-radius:var(--r-xl); overflow:hidden; isolation:isolate;
+  background:var(--surface); color:var(--ink);
+  box-shadow:0 1px 0 rgba(var(--sh),.06), 0 40px 74px -44px rgba(var(--sh-band),.5);
+}
+.fc-media{ position:relative; min-height:clamp(300px,32vw,460px); overflow:hidden; background:var(--surface-2); }
+.fc-media img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; }
+.fc-ph{ position:absolute; inset:0; background:linear-gradient(135deg,var(--tint-2) 0%,var(--tint-4) 54%,var(--tint-3) 100%); }
+.fc-over{
+  position:absolute; inset:auto 0 0 0; padding:clamp(24px,2.7vw,38px);
+  background:linear-gradient(to top,rgba(46,46,107,.86),rgba(46,46,107,.44) 58%,rgba(46,46,107,0));
+}
+.fc-over h3{ margin:0; max-width:11em; color:#fff; font-weight:700; font-size:clamp(1.48rem,2.4vw,2.15rem); line-height:1.13; letter-spacing:-.034em; }
+.fc-info{ display:flex; flex-direction:column; padding:clamp(26px,2.7vw,38px); background:var(--surface); border-left:1px solid var(--line-2); }
+.fc-row{ padding:18px 0; border-top:1px solid var(--line-2); }
+.fc-row:first-child{ border-top:0; padding-top:0; }
+.fc-row b{ display:block; font-weight:800; color:var(--ink); line-height:1.18; font-size:clamp(1.12rem,1.5vw,1.36rem); letter-spacing:-.03em; }
+.fc-row span{ display:block; margin-top:6px; font-size:.9rem; line-height:1.45; color:var(--ink-soft); }
+.fc-link{ margin-top:auto; padding-top:28px; display:inline-flex; align-items:center; gap:13px; font-size:.95rem; font-weight:700; letter-spacing:-.018em; color:var(--ink); }
+.fc-link i{
+  width:38px; height:38px; flex:0 0 auto; border-radius:50%; background:var(--warm);
+  display:grid; place-items:center; font-style:normal; font-weight:700; color:var(--pop-ink);
+  transition:transform .4s var(--ease);
+}
+.fc-link:hover i{ transform:translateX(4px); }
+.fc-dots{ display:flex; gap:8px; justify-content:center; margin-top:32px; }
+.fc-dots button{ width:28px; height:5px; padding:0; border:0; border-radius:999px; background:rgba(255,255,255,.34); transition:width .4s var(--ease), background .3s; }
+.fc-dots button[aria-current="true"]{ width:44px; background:var(--band-ink); }
+.fc-dots button:focus-visible{ outline-color:#fff; outline-offset:4px; }
+/* no JS: the track scrolls natively instead */
+.no-js .fcar-view{ overflow-x:auto; scroll-snap-type:x mandatory; }
+.no-js .fcard{ scroll-snap-align:center; }
+
+/* ============================================================
+   CLOSING — the strategic-support card, praise, the form
+   ============================================================ */
+.praise{ padding:104px 0 84px; }
+.bundle-card{
+  position:relative; border-radius:var(--r-xl); background:var(--bundle); color:var(--bundle-ink);
+  padding:clamp(46px,6vw,86px) clamp(26px,5vw,72px); text-align:center;
+  box-shadow:0 2px 6px -3px rgba(var(--sh),.14), 0 40px 80px -50px rgba(var(--sh),.4);
+}
+.bundle-card :focus-visible{ outline-color:var(--bundle-soft); }
+.bundle-card .h2{ max-width:24ch; margin:0 auto; color:var(--bundle-ink); }
+.bundle-card .lead{ max-width:692px; margin:22px auto 0; color:var(--bundle-soft); }
+.bundle-card .corner{ position:absolute; }
+.bundle-card .corner.tl{ left:37px; top:34px; width:60px; }
+.bundle-card .corner.br{ right:36px; bottom:33px; width:61px; }
+.pills{ list-style:none; margin:38px 0 0; padding:0; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+.pill{
+  display:inline-flex; align-items:center; gap:10px; padding:12px 22px; border-radius:999px;
+  font-size:.95rem; font-weight:600; letter-spacing:-.012em; color:var(--bundle-ink);
+  background:var(--bundle-pill); box-shadow:inset 0 0 0 1.5px var(--bundle-line);
+  transition:transform .4s var(--ease), background .3s;
+}
+.pill .art{ width:45px; transition:transform .4s var(--ease); }
+a.pill:hover{ transform:translateY(-2px); background:#fff; }
+a.pill:hover .art{ transform:translateX(4px); }
+
+.praise-body{ margin-top:80px; }
+.praise-head{ text-align:center; }
+.praise-head .art{ width:min(389px, 70%); margin:0 auto; }
+.q-lead{
+  margin-top:38px; border-radius:var(--r-xl);
+  /* Figma: 100px in on the left, but the quote runs to 15px off the right edge */
+  padding:clamp(36px,6.9vw,100px) clamp(18px,1vw,26px) clamp(30px,5.6vw,80px) clamp(26px,6.9vw,100px);
+  background:var(--surface); box-shadow:inset 0 0 0 1px var(--line), var(--shadow-card);
+}
+.q-lead blockquote{ margin:0; max-width:953px; font-weight:500; color:var(--ink); font-size:clamp(1.58rem,2.8vw,2.5rem); line-height:1.355; letter-spacing:-.053em; }
+.attr .nm{ display:block; font-weight:700; letter-spacing:-.018em; line-height:1.3; color:var(--ink); }
+.attr .ro{ display:block; font-size:.72rem; letter-spacing:.03em; color:var(--ink-faint); }
+.q-lead .attr{ margin-top:43px; }
+.q-lead .attr .nm{ font-size:1.06rem; }
+.q-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(22px,3vw,43px); margin-top:clamp(38px,4vw,58px); }
+.q{ padding:21px 0 0; border-top:2px solid var(--ink-a18); }
+.q p{ margin:0; font-size:1rem; line-height:1.5; font-weight:500; letter-spacing:-.018em; color:var(--ink); }
+.q .attr{ display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 9px; margin-top:20px; }
+.q .attr .nm{ display:inline; font-size:.88rem; }
+.q .attr .ro{ display:inline; }
+
+/* ---------- final CTA + form ---------- */
+.final{ position:relative; padding:0 0 106px; }
+.final-in{ display:grid; grid-template-columns:minmax(0,486fr) minmax(0,510fr); gap:72px; align-items:start; }
+.final h2{ letter-spacing:-.0525em; line-height:1.34; }
+.final .lead{ margin-top:12px; max-width:44ch; }
+.final .offer{
+  margin:30px 0 0; display:flex; flex-wrap:wrap; align-items:center; gap:6px;
+  font-size:clamp(1.42rem,2.2vw,1.95rem); font-weight:600; color:var(--ink); letter-spacing:-.03em; line-height:1.18;
+}
+.final .onus{ font-size:.79em; letter-spacing:-.018em; gap:0; }
+.final .onus .art{ width:11px; }
+.final .onus span{ padding:0 3px; margin-inline:-2px; }
+.final .note{ margin:26px 0 0; font-size:.875rem; letter-spacing:.008em; color:var(--ink-soft); }
+
+.form-card{ border-radius:var(--r-xl); background:var(--surface); padding:clamp(26px,3.4vw,38px); box-shadow:inset 0 0 0 1px var(--line), var(--shadow-card); }
+.form-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.field + .field,.form-row + .field{ margin-top:16px; }
+.form-row .field + .field{ margin-top:0; }
+.field label{ display:block; font-size:.7rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:8px; }
+.field input,.field textarea{
+  width:100%; font-family:var(--sans); font-size:1rem; color:var(--ink); letter-spacing:-.008em;
+  padding:13px 15px; border:1.5px solid var(--input-line); border-radius:var(--r-md);
+  background:var(--surface-2); transition:border-color .2s var(--ease-soft), box-shadow .2s var(--ease-soft), background .2s;
+}
+.field textarea{ resize:vertical; min-height:133px; line-height:1.5; }
+.field input::placeholder,.field textarea::placeholder{ color:var(--ink-faint); }
+.field input:focus,.field textarea:focus{ outline:none; background:#fff; border-color:var(--accent); box-shadow:0 0 0 4px var(--accent-a16); }
+.field input:user-invalid{ border-color:var(--warm-ink); }
+.req{ color:var(--warm-ink); font-weight:700; }
+.hp{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+.form-card .btn{ margin-top:24px; width:100%; justify-content:center; }
+.finehint{ font-size:.79rem; color:var(--ink-faint); text-align:center; margin:14px 0 0; line-height:1.45; }
+.success{ display:none; text-align:center; padding:18px 4px 10px; }
+.success.show{ display:block; animation:pop .45s var(--ease); }
+.success .badge-ok{ width:58px; height:58px; border-radius:14px; background:var(--pop); display:grid; place-items:center; margin:0 auto 20px; color:var(--ink); }
+.success .badge-ok svg{ width:27px; height:27px; }
+.success h3{ font-size:1.75rem; font-weight:800; letter-spacing:-.035em; margin-bottom:12px; }
+.success p{ color:var(--ink-soft); font-size:1rem; max-width:34ch; margin:0 auto; line-height:1.6; }
+@keyframes pop{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:none; } }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.foot{ position:relative; padding:74px 0 32px; background:var(--ground-3); border-top:3px solid var(--rule-top); }
+.foot-grid{ display:grid; grid-template-columns:minmax(0,1fr) auto; gap:clamp(32px,6vw,86px); }
+.foot-brand img{ width:197px; height:auto; }
+.foot-cols{ display:grid; grid-template-columns:repeat(3,auto); gap:clamp(28px,5vw,72px); }
+.foot-cols h4{ font-size:.66rem; font-weight:600; letter-spacing:.15em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 15px; line-height:1; }
+.foot-cols ul{ list-style:none; margin:0; padding:0; display:grid; gap:12.7px; }
+.foot-cols li{ line-height:24px; }
+.foot-cols a{ font-size:.92rem; line-height:1.6; color:var(--ink-soft); transition:color .25s; }
+.foot-cols a:hover{ color:var(--accent); }
+.foot-cta{ display:flex; justify-content:flex-end; margin-top:-27px; }
+.foot-base{ margin-top:70px; padding-top:22px; border-top:1px solid var(--line); }
+.foot-base p{ margin:0; font-size:.735rem; color:var(--ink-faint); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1040px){
+  .final-in{ grid-template-columns:1fr; gap:40px; }
+  .q-grid{ grid-template-columns:1fr; }
+  .foot-grid{ grid-template-columns:1fr; }
+}
+@media (max-width:860px){
+  .nav-in{ grid-template-columns:1fr auto; }
+  .nav-links{ display:none; }
+  .hero{ padding-top:120px; }
+  .features{ padding:80px 0 84px; }
+  .fcar{ margin-top:44px; }
+  .fcar-track{ --card-w:calc(100vw - 2 * var(--gut)); gap:12px; }
+  .fcard{ grid-template-columns:minmax(0,1fr); min-height:0; }
+  .fc-media{ min-height:clamp(230px,52vw,330px); }
+  .fc-info{ border-left:0; border-top:1px solid var(--line-2); }
+  .praise{ padding:76px 0 68px; }
+  .praise-body{ margin-top:64px; }
+  .bundle-card .corner.tl{ left:16px; top:16px; width:40px; }
+  .bundle-card .corner.br{ right:16px; bottom:16px; width:40px; }
+  .final{ padding:0 0 86px; }
+  .trusted{ padding:64px 0 60px; }
+  .foot-cta{ margin-top:22px; justify-content:flex-start; }
+}
+@media (max-width:640px){
+  body{ font-size:16px; }
+  .foot-cols{ grid-template-columns:1fr 1fr; gap:28px; }
+  .form-row{ grid-template-columns:1fr; gap:0; }
+  .form-row .field + .field{ margin-top:16px !important; }
+  .hero-ctas .btn{ width:100%; justify-content:center; }
+  .mq span{ font-size:1.25rem; padding:0 22px; }
+  .pill{ padding:10px 18px; font-size:.9rem; }
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+  html{ scroll-behavior:auto; }
+  .reveal,.stagger>*{ opacity:1; transform:none; }
+  .home .nav .brand{ opacity:1; visibility:visible; transform:none; }
+}
+/* without JS nothing waits for a reveal */
+.no-js .reveal,.no-js .stagger>*{ opacity:1; transform:none; }
+.fc-dots:empty{ display:none; }
