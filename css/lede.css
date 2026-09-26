@@ -468,6 +468,7 @@ a.pill:hover .art{ transform:translateX(4px); }
   .praise-body{ margin-top:64px; }
   .bundle-card .corner.tl{ left:16px; top:16px; width:40px; }
   .bundle-card .corner.br{ right:16px; bottom:16px; width:40px; }
+  .bundle-card{ padding-bottom:72px; }   /* keep the last line clear of the corner */
   .final{ padding:0 0 86px; }
   .trusted{ padding:64px 0 60px; }
   .foot-cta{ margin-top:22px; justify-content:flex-start; }
@@ -579,3 +580,47 @@ a.pill:hover .art{ transform:translateX(4px); }
   .fstack .fcard:nth-child(even) .fc-info{ border-right:0; }
   .stack + .closing .final{ padding-top:56px; }
 }
+
+/* ============================================================
+   ABOUT — no Figma frame yet. The v12 about.html content, set in
+   the v13 system: same page head, cards, persimmon card and form.
+   ============================================================ */
+.about-head{ padding-bottom:40px; }
+.a-sec{ position:relative; z-index:1; padding:clamp(72px,8vw,104px) 0; }
+.story{ display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:clamp(36px,6vw,96px); align-items:start; }
+.story .h2{ max-width:13ch; }
+.story-body p{ margin:0 0 20px; font-size:1.06rem; line-height:1.68; color:var(--ink-soft); }
+.story-body p:last-child{ margin-bottom:0; }
+.story-body b{ color:var(--ink); font-weight:700; }
+.story-body a{ color:var(--accent-deep); font-weight:600; box-shadow:inset 0 -1.5px 0 var(--accent-a40); transition:box-shadow .3s; }
+.story-body a:hover{ box-shadow:inset 0 -2.5px 0 var(--accent-deep); }
+.miles{ list-style:none; margin:clamp(56px,6vw,80px) 0 0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(20px,3vw,40px); }
+.mile{ border-top:2px solid var(--ink); padding-top:18px; }
+.mile .y{ display:block; font-size:clamp(2.4rem,4.4vw,3.6rem); font-weight:800; letter-spacing:-.05em; line-height:1; color:var(--ink); }
+.mile .l{ display:block; margin-top:12px; font-size:1.05rem; font-weight:700; letter-spacing:-.02em; color:var(--ink); }
+.mile .d{ display:block; margin-top:4px; font-size:.93rem; line-height:1.5; color:var(--ink-soft); max-width:30ch; }
+.p-grid{ list-style:none; margin:48px 0 0; padding:0; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; }
+.pcard{ border-radius:var(--r-xl); background:var(--surface); padding:clamp(24px,2.6vw,30px); box-shadow:inset 0 0 0 1px var(--line), var(--shadow-card); }
+.pcard .n{ display:grid; place-items:center; width:34px; height:34px; border-radius:10px; margin-bottom:20px; background:var(--pop); color:var(--pop-ink); font-weight:800; font-size:.95rem; letter-spacing:-.02em; }
+.pcard .h3{ margin:0 0 10px; }
+.partners{ text-align:center; }
+.partners blockquote{ margin:0 auto; max-width:30ch; font-size:clamp(1.6rem,3vw,2.35rem); font-weight:500; line-height:1.25; letter-spacing:-.04em; color:var(--ink); text-wrap:balance; }
+.partners figcaption{ margin-top:22px; }
+.partners .attr .nm{ display:inline; font-size:1rem; }
+.partners .attr .ro{ display:inline; margin-left:8px; }
+.names{ list-style:none; margin:clamp(48px,5vw,64px) 0 0; padding:28px 0 0; display:flex; flex-wrap:wrap; justify-content:center; gap:14px clamp(18px,1.7vw,26px); border-top:1px solid var(--line); }
+.names li{ font-size:clamp(1.05rem,1.55vw,1.3rem); font-weight:700; letter-spacing:-.03em; color:var(--ink-faint); }
+.team-sec{ padding-bottom:96px; }
+.team-sec .pills{ margin-top:36px; }
+.team-sec .more{ margin:30px 0 0; }
+.team-sec .more a{ font-weight:700; color:var(--bundle-ink); box-shadow:inset 0 -2px 0 var(--bundle-line); transition:box-shadow .3s; }
+.team-sec .more a:hover{ box-shadow:inset 0 -3px 0 var(--bundle-ink); }
+@media (max-width:1040px){ .p-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:860px){
+  .about-head{ padding-bottom:24px; }
+  .story{ grid-template-columns:1fr; gap:26px; }
+  .story .h2{ max-width:none; }
+  .miles{ grid-template-columns:1fr; gap:26px; }
+  .page-head .br-lg{ display:none; }
+}
+@media (max-width:640px){ .p-grid{ grid-template-columns:1fr; } }

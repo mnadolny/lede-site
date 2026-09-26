@@ -9,7 +9,7 @@ open the files or serve the folder.
 | Home | `index.html` | `4068:2` |
 | Pricing | `pricing.html` | `4515:44` |
 | Showcase (features) | `showcase.html` | `4520:58` |
-| About | `about.html` | — (content from the v12 HTML about page) |
+| About | `about.html` | — no frame yet; content from the v12 about page |
 
 ## Structure
 
@@ -21,6 +21,11 @@ assets/img/      raster images (webp)
 assets/svg/      hand-drawn art exported from Figma
 .nojekyll        tells GitHub Pages to serve files as-is
 ```
+
+**Design notes**
+- Colour, type and spacing come from the Figma frames at 1440px. The primary blue is `#3644FB`, and the type is Schibsted Grotesk only.
+- The hand-drawn art (logos, brackets, underlines, corners, arrow) is exported straight from Figma into `assets/svg/`.
+- The home feature carousel works: dots, arrow keys, swipe, and a click on a peeking card all move it. The Figma frame shows it static.
 
 **Header behaviour**
 - On the home page (`<body class="home">`), the big logo sits in the hero. The small
