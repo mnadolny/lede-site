@@ -44,20 +44,19 @@ python3 -m http.server 4174 --directory site
 
 Then open http://localhost:4174.
 
-## Publish on GitHub Pages
+## Published
 
-This folder is its own git repository. To publish it:
+Live at **https://mnadolny.github.io/lede-site/**. The repo is public, and Pages deploys from `main` at `/ (root)`.
+Pushing to `main` redeploys the site within a minute or two.
 
-1. Create an empty repo on GitHub, for example `lede-site`.
-2. Push: `git remote add origin https://github.com/<owner>/lede-site.git && git push -u origin main`
-3. In the repo, go to Settings → Pages → Build and deployment. Set Source to *Deploy from a branch*,
-   the branch to `main`, and the folder to `/ (root)`.
-
-Visibility:
-- A **public** repo gives a public URL.
-- A **private** repo can use Pages only on a paid plan. On GitHub Enterprise Cloud, the
-  site can be limited to org members.
-- The pages carry `<meta name="robots" content="noindex">` so search engines skip the preview.
+**Keeping it out of search results**
+- Every page carries `<meta name="robots" content="noindex, nofollow">`. Keep that tag on any new page.
+- Don't add a `robots.txt` that blocks crawling. Crawlers only read `robots.txt` from the domain root
+  (`mnadolny.github.io/robots.txt`), not from this sub-path. Blocking crawling would also stop search
+  engines from seeing the noindex tag, so a linked page could still show up as a bare URL.
+- GitHub Pages can't send custom headers such as `X-Robots-Tag`, so the meta tag is the tool here.
+- noindex keeps the pages out of search results. It does not make them private: anyone with the link,
+  or anyone who opens the public repo, can see them.
 
 ## Not wired up yet
 
