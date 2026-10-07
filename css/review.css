@@ -1,0 +1,43 @@
+/* ============================================================
+   DESIGN REVIEW OPTIONS — loaded by review.html only.
+   The overlap and the halftone dots are now on the real home page; what is
+   left here are the alternatives still open. Classes on <html>, set by js/review.js:
+     .opt-line      a hand-drawn line connects the band to praise
+     .opt-hatch     hand-drawn hatching instead of the halftone dots
+     .opt-nopat     no pattern at all
+   ============================================================ */
+
+/* ---------- line work ---------- */
+.rv-line{ position:absolute; left:0; top:0; width:1px; height:1px; overflow:visible; pointer-events:none; z-index:5; display:none; }
+.opt-line .rv-line{ display:block; }
+.rv-line path{ fill:none; stroke:var(--line-ink); stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; }
+
+/* ---------- pattern alternatives ---------- */
+.opt-nopat .wash-pat{ display:none; }
+.opt-hatch{ --pat:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%23000' stroke-linecap='round'%3E%3Cpath stroke-width='1.3' d='M-2 16 Q7.9 7.9 16 -2'/%3E%3Cpath stroke-width='1.8' d='M-2 30 Q14.9 14.9 30 -2'/%3E%3Cpath stroke-width='1.45' d='M-2 44 Q21.9 21.9 44 -2'/%3E%3Cpath stroke-width='1.65' d='M-2 58 Q28.9 28.9 58 -2'/%3E%3Cpath stroke-width='1.3' d='M12 58 Q35.9 35.9 58 12'/%3E%3Cpath stroke-width='1.8' d='M26 58 Q42.9 42.9 58 26'/%3E%3Cpath stroke-width='1.45' d='M40 58 Q49.9 49.9 58 40'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 56px 56px; }
+.opt-hatch .wash-pat{ opacity:.6; }
+
+/* ---------- the panel ---------- */
+.rv{
+  position:fixed; left:16px; bottom:16px; z-index:60; width:min(300px, calc(100vw - 32px));
+  border-radius:16px; background:var(--surface); color:var(--ink);
+  box-shadow:inset 0 0 0 1px var(--line), 0 18px 40px -18px rgba(var(--sh),.45);
+  font-size:.84rem; line-height:1.4;
+}
+.rv-toggle{
+  display:flex; width:100%; align-items:center; justify-content:space-between; gap:10px;
+  padding:12px 16px; border:0; background:none; font:inherit; font-weight:800; letter-spacing:.06em;
+  text-transform:uppercase; font-size:.72rem; color:var(--ink); cursor:pointer;
+}
+.rv-toggle::after{ content:"\2013"; font-size:1rem; line-height:1; }
+.rv-toggle[aria-expanded="false"]::after{ content:"+"; }
+.rv-body{ padding:0 16px 14px; display:grid; gap:10px; }
+.rv-body[hidden]{ display:none; }
+.rv-opt{ display:flex; gap:10px; align-items:flex-start; cursor:pointer; }
+.rv input{ accent-color:var(--accent); margin:2px 0 0; flex:0 0 auto; }
+.rv-set{ margin:2px 0 0; padding:10px 0 0; border:0; border-top:1px solid var(--line-2); display:flex; flex-wrap:wrap; gap:6px 14px; }
+.rv-set legend{ padding:0; margin-bottom:6px; width:100%; float:left; }
+.rv-set label{ display:flex; gap:6px; align-items:center; cursor:pointer; }
+.rv-set input{ margin:0; }
+.rv-jump{ margin:2px 0 0; padding-top:10px; border-top:1px solid var(--line-2); color:var(--ink-faint); }
+.rv-jump a{ color:var(--accent); font-weight:600; }
