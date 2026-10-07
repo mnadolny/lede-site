@@ -106,6 +106,7 @@
 
   --max: 1180px;
   --gut: clamp(20px, 5vw, 56px);
+  --ov:  clamp(72px, 10vw, 150px);   /* how far the praise card rides up over the support band */
   --r-xl: 24px;
   --r-lg: 18px;
   --r-md: 12px;
@@ -194,6 +195,35 @@ h1,h2,h3,h4{ margin:0; font-weight:700; letter-spacing:-.035em; line-height:1.02
   background:linear-gradient(0deg, var(--ground-0), var(--ground) 94%);
 }
 .closing > section{ position:relative; z-index:1; }
+
+/* halftone: dots cut out of a deepened copy of each wash, so they carry the
+   gradient's own colour. A real child, so it paints between the blurred
+   ::before and the ::after fade to ground. --pat is the dot tile, so
+   review.html can swap in other patterns. */
+:root{ --pat: radial-gradient(circle, #000 1.4px, transparent 2px) 0 0 / 13px 13px; }
+.wash-pat{
+  position:absolute; inset:0; opacity:.4;
+  -webkit-mask:var(--pat);
+          mask:var(--pat);
+}
+.wash.top .wash-pat{
+  background:
+    radial-gradient(48% 52% at 16% 30%, #FF7A55 0%, transparent 72%),
+    radial-gradient(44% 50% at 84% 20%, #FF9C8C 0%, transparent 72%),
+    radial-gradient(60% 56% at 52% 78%, #7D95FF 0%, transparent 74%);
+}
+/* closing: the colour sits higher than the wash's own, and a fade layer stops
+   the dots before the form ends, so they never run into the footer */
+.wash.bottom .wash-pat{
+  background:
+    radial-gradient(46% 40% at 10% 58%, #7D95FF 0%, transparent 72%),
+    radial-gradient(44% 40% at 90% 62%, #FF9C8C 0%, transparent 72%),
+    radial-gradient(52% 36% at 56% 70%, #EFC24A 0%, transparent 74%);
+  -webkit-mask:var(--pat), linear-gradient(180deg, #000 52%, transparent 80%);
+  -webkit-mask-composite:source-in;
+  mask:var(--pat), linear-gradient(180deg, #000 52%, transparent 80%);
+  mask-composite:intersect;
+}
 .page-head{ position:relative; overflow:clip; isolation:isolate; }
 .page-head > .wrap{ position:relative; z-index:1; }
 
@@ -358,6 +388,24 @@ h1,h2,h3,h4{ margin:0; font-weight:700; letter-spacing:-.035em; line-height:1.02
 .bundle-card .corner{ position:absolute; }
 .bundle-card .corner.tl{ left:37px; top:34px; width:60px; }
 .bundle-card .corner.br{ right:36px; bottom:33px; width:61px; }
+/* home: the same persimmon block, run full-bleed as its own band instead of a
+   card stacked over the praise card */
+.support{ background:var(--bundle); color:var(--bundle-ink); text-align:center; }
+.support-in{ position:relative; padding-block:clamp(76px,9vw,128px); padding-bottom:calc(clamp(76px,9vw,128px) + var(--ov)); }
+.support :focus-visible{ outline-color:var(--bundle-soft); }
+.support .h2{ max-width:24ch; margin:0 auto; color:var(--bundle-ink); }
+.support .lead{ max-width:692px; margin:22px auto 0; color:var(--bundle-soft); }
+.support .corner{ position:absolute; }
+.support .corner.tl{ left:var(--gut); top:44px; width:60px; }
+.support .corner.br{ right:var(--gut); bottom:calc(var(--ov) + 44px); width:61px; }
+.praise > .wrap > .praise-body:first-child{ margin-top:0; }
+/* the lead praise card rides up over the band. flow-root stops its negative
+   margin collapsing through to .closing (which would drag the wash's opaque
+   top fade up over the band). */
+.support + .closing .praise{ padding-top:0; display:flow-root; }
+.support + .closing .q-lead{ position:relative; z-index:2; margin-top:calc(-1 * var(--ov)); }
+.q-lead .praise-head{ text-align:left; margin:0 0 clamp(26px,3vw,40px); }
+.q-lead .praise-head .art{ margin:2px 0 0; width:min(300px, 70%); }
 .pills{ list-style:none; margin:38px 0 0; padding:0; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
 .pill{
   display:inline-flex; align-items:center; gap:10px; padding:12px 22px; border-radius:999px;
@@ -469,6 +517,17 @@ a.pill:hover .art{ transform:translateX(4px); }
   .bundle-card .corner.tl{ left:16px; top:16px; width:40px; }
   .bundle-card .corner.br{ right:16px; bottom:16px; width:40px; }
   .bundle-card{ padding-bottom:72px; }   /* keep the last line clear of the corner */
+  .support .corner.tl{ top:22px; width:40px; }
+  .support .corner.br{ bottom:calc(var(--ov) + 22px); width:40px; }
+  /* stacked, the closing runs much taller: fade the dots out sooner so they
+     stay off the "Let's talk" copy */
+  .wash.bottom .wash-pat{
+    opacity:.32;
+    -webkit-mask:var(--pat), linear-gradient(180deg, #000 36%, transparent 54%);
+    -webkit-mask-composite:source-in;
+    mask:var(--pat), linear-gradient(180deg, #000 36%, transparent 54%);
+    mask-composite:intersect;
+  }
   .final{ padding:0 0 86px; }
   .trusted{ padding:64px 0 60px; }
   .foot-cta{ margin-top:22px; justify-content:flex-start; }
