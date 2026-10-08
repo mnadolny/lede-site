@@ -293,7 +293,14 @@ h1,h2,h3,h4{ margin:0; font-weight:700; letter-spacing:-.035em; line-height:1.02
    ============================================================ */
 .hero{ position:relative; padding:150px 0 0; overflow:clip; isolation:isolate; }
 .hero-in{ position:relative; z-index:2; text-align:center; }
-.hero-mark{ width:clamp(210px, 22.2vw, 320px); margin:0 auto 38px; }
+.hero-mark{ display:block; width:clamp(210px, 22.2vw, 320px); height:auto; margin:0 auto 38px; overflow:visible; }
+/* the ring is written in with a pen: the masked stroke runs its length counter-clockwise (end of the path back to
+   its start, hence the negative offset), fast off the nib and easing to a stop */
+.hero-pen{ stroke-dasharray:1 2; stroke-dashoffset:-1.05; }
+.hero-mark.is-in .hero-pen{ animation:pen-write .85s cubic-bezier(.55,.05,.2,1) .3s forwards; }
+.hero-mark.is-in .hero-ring{ animation:ink-in .5s ease-out .3s both; }
+@keyframes pen-write{ to{ stroke-dashoffset:0; } }
+@keyframes ink-in{ from{ opacity:.25; } }
 .hero h1{ max-width:19ch; margin:0 auto; }
 .hero .lead{ max-width:648px; margin:30px auto 0; }
 .hero-ctas{ display:flex; flex-wrap:wrap; gap:13px; justify-content:center; margin-top:38px; }
@@ -549,6 +556,7 @@ a.pill:hover .art{ transform:translateX(4px); }
 }
 /* without JS nothing waits for a reveal */
 .no-js .reveal,.no-js .stagger>*{ opacity:1; transform:none; }
+.no-js .hero-pen{ stroke-dashoffset:0; }
 .fc-dots:empty{ display:none; }
 
 /* ============================================================
